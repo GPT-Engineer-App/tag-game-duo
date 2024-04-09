@@ -8,35 +8,24 @@ let player1Speed = 5;
 let player2Speed = 5;
 let isGameOver = false;
 
+let keys = {
+  w: false,
+  s: false,
+  a: false,
+  d: false,
+  ArrowUp: false,
+  ArrowDown: false,
+  ArrowLeft: false,
+  ArrowRight: false,
+};
+
 document.addEventListener("keydown", (e) => {
   if (isGameOver) return;
+  keys[e.key] = true;
+});
 
-  switch (e.key) {
-    case "w":
-      player1Pos.y -= player1Speed;
-      break;
-    case "s":
-      player1Pos.y += player1Speed;
-      break;
-    case "a":
-      player1Pos.x -= player1Speed;
-      break;
-    case "d":
-      player1Pos.x += player1Speed;
-      break;
-    case "ArrowUp":
-      player2Pos.y -= player2Speed;
-      break;
-    case "ArrowDown":
-      player2Pos.y += player2Speed;
-      break;
-    case "ArrowLeft":
-      player2Pos.x -= player2Speed;
-      break;
-    case "ArrowRight":
-      player2Pos.x += player2Speed;
-      break;
-  }
+document.addEventListener("keyup", (e) => {
+  keys[e.key] = false;
 });
 
 function checkCollision() {
@@ -50,6 +39,16 @@ function checkCollision() {
 }
 
 function gameLoop() {
+  if (keys.w) player1Pos.y -= player1Speed;
+  if (keys.s) player1Pos.y += player1Speed;
+  if (keys.a) player1Pos.x -= player1Speed;
+  if (keys.d) player1Pos.x += player1Speed;
+
+  if (keys.ArrowUp) player2Pos.y -= player2Speed;
+  if (keys.ArrowDown) player2Pos.y += player2Speed;
+  if (keys.ArrowLeft) player2Pos.x -= player2Speed;
+  if (keys.ArrowRight) player2Pos.x += player2Speed;
+
   player1.style.left = player1Pos.x + "px";
   player1.style.top = player1Pos.y + "px";
 
