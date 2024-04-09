@@ -10,6 +10,8 @@ let isGameOver = false;
 let isPlayer1Chasing;
 let timeRemaining = 30;
 let countdownTimer;
+let player1Score = 0;
+let player2Score = 0;
 
 let keys = {
   w: false,
@@ -36,14 +38,25 @@ function startGame() {
   message.textContent = isPlayer1Chasing ? "Player 1 is chasing!" : "Player 2 is chasing!";
   timeRemaining = 30;
   countdownTimer = setInterval(updateCountdown, 1000);
+  player1Score = 0;
+  player2Score = 0;
+  updateScoreboard();
 }
 
 function updateCountdown() {
   timeRemaining--;
+  countdown.textContent = timeRemaining;
   if (timeRemaining <= 0) {
     clearInterval(countdownTimer);
     isGameOver = true;
-    message.textContent = isPlayer1Chasing ? "Player 2 wins by avoiding capture!" : "Player 1 wins by avoiding capture!";
+    if (isPlayer1Chasing) {
+      message.textContent = "Player 2 wins by avoiding capture!";
+      player2Score++;
+    } else {
+      message.textContent = "Player 1 wins by avoiding capture!";
+      player1Score++;
+    }
+    updateScoreboard();
   }
 }
 
@@ -54,18 +67,20 @@ function checkCollision() {
   if (rect1.x < rect2.x + rect2.width && rect1.x + rect1.width > rect2.x && rect1.y < rect2.y + rect2.height && rect1.y + rect1.height > rect2.y) {
     clearInterval(countdownTimer);
     isGameOver = true;
-    message.textContent = isPlayer1Chasing ? "Player 1 wins by catching Player 2!" : "Player 2 wins by catching Player 1!";
+    if (isPlayer1Chasing) {
+      message.textContent = "Player 1 wins by catching Player 2!";
+      player1Score++;
+    } else {
+      message.textContent = "Player 2 wins by catching Player 1!";
+      player2Score++;
+    }
+    updateScoreboard();
   }
 }
 
-function updateCountdown() {
-  timeRemaining--;
-  countdown.textContent = timeRemaining;
-  if (timeRemaining <= 0) {
-    clearInterval(countdownTimer);
-    isGameOver = true;
-    message.textContent = isPlayer1Chasing ? "Player 2 wins by avoiding capture!" : "Player 1 wins by avoiding capture!";
-  }
+function updateScoreboard() {
+  document.getElementById("player1-score").textContent = player1Score;
+  document.getElementById("player2-score").textContent = player2Score;
 }
 
 function gameLoop() {
