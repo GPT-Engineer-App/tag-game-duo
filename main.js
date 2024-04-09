@@ -75,7 +75,18 @@ function checkCollision() {
       player2Score++;
     }
     updateScoreboard();
+    setTimeout(startNewGame, 3000);
   }
+}
+
+function startNewGame() {
+  player1Pos = { x: 30, y: 30 };
+  player2Pos = { x: 450, y: 450 };
+  player1.style.left = player1Pos.x + "px";
+  player1.style.top = player1Pos.y + "px";
+  player2.style.left = player2Pos.x + "px";
+  player2.style.top = player2Pos.y + "px";
+  startGame();
 }
 
 function updateScoreboard() {
@@ -93,6 +104,12 @@ function gameLoop() {
   if (keys.ArrowDown) player2Pos.y += player2Speed;
   if (keys.ArrowLeft) player2Pos.x -= player2Speed;
   if (keys.ArrowRight) player2Pos.x += player2Speed;
+
+  // Keep players within the container boundaries
+  player1Pos.x = Math.max(0, Math.min(player1Pos.x, 450));
+  player1Pos.y = Math.max(0, Math.min(player1Pos.y, 450));
+  player2Pos.x = Math.max(0, Math.min(player2Pos.x, 450));
+  player2Pos.y = Math.max(0, Math.min(player2Pos.y, 450));
 
   player1.style.left = player1Pos.x + "px";
   player1.style.top = player1Pos.y + "px";
