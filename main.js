@@ -105,11 +105,14 @@ function gameLoop() {
   if (keys.ArrowLeft) player2Pos.x -= player2Speed;
   if (keys.ArrowRight) player2Pos.x += player2Speed;
 
-  // Keep players within the container boundaries
-  player1Pos.x = Math.max(0, Math.min(player1Pos.x, 450));
-  player1Pos.y = Math.max(0, Math.min(player1Pos.y, 450));
-  player2Pos.x = Math.max(0, Math.min(player2Pos.x, 450));
-  player2Pos.y = Math.max(0, Math.min(player2Pos.y, 450));
+  const gameContainer = document.getElementById("game-container");
+  const containerWidth = gameContainer.clientWidth;
+  const containerHeight = gameContainer.clientHeight;
+
+  player1Pos.x = Math.max(0, Math.min(player1Pos.x, containerWidth - player1.offsetWidth));
+  player1Pos.y = Math.max(0, Math.min(player1Pos.y, containerHeight - player1.offsetHeight));
+  player2Pos.x = Math.max(0, Math.min(player2Pos.x, containerWidth - player2.offsetWidth));
+  player2Pos.y = Math.max(0, Math.min(player2Pos.y, containerHeight - player2.offsetHeight));
 
   player1.style.left = player1Pos.x + "px";
   player1.style.top = player1Pos.y + "px";
