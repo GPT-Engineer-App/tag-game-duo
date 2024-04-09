@@ -1,0 +1,16 @@
+.character {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+#player1 {
+  top: 30px;
+  left: 30px;
+}
+
+#player2 {
+  bottom: 30px;
+  right: 30px;
+}
