@@ -35,7 +35,7 @@ document.addEventListener("keyup", (e) => {
 
 function startGame() {
   isPlayer1Chasing = Math.random() < 0.5;
-  message.textContent = isPlayer1Chasing ? "Player 1 is chasing!" : "Player 2 is chasing!";
+  message.textContent = isPlayer1Chasing ? "Blue circle is chasing!" : "Red circle is chasing!";
   timeRemaining = 30;
   countdownTimer = setInterval(updateCountdown, 1000);
   player1Score = 0;
@@ -50,10 +50,10 @@ function updateCountdown() {
     clearInterval(countdownTimer);
     isGameOver = true;
     if (isPlayer1Chasing) {
-      message.textContent = "Player 2 wins by avoiding capture!";
+      message.textContent = "Red circle wins by avoiding capture!";
       player2Score++;
     } else {
-      message.textContent = "Player 1 wins by avoiding capture!";
+      message.textContent = "Blue circle wins by avoiding capture!";
       player1Score++;
     }
     updateScoreboard();
@@ -68,10 +68,10 @@ function checkCollision() {
     clearInterval(countdownTimer);
     isGameOver = true;
     if (isPlayer1Chasing) {
-      message.textContent = "Player 1 wins by catching Player 2!";
+      message.textContent = "Blue circle wins by catching Red circle!";
       player1Score++;
     } else {
-      message.textContent = "Player 2 wins by catching Player 1!";
+      message.textContent = "Red circle wins by catching Blue circle!";
       player2Score++;
     }
     updateScoreboard();
